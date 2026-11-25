@@ -51,6 +51,10 @@ export default function Terminal() {
       className="min-h-dvh bg-black p-4 font-mono text-green-400"
       onClick={() => inputRef.current?.focus()}
     >
+      <div className="mb-4">
+        <p>Welcome to my Portfolio.</p>
+        <p>Type help for all Commands.</p>
+      </div>
       {entries.map((e, i) => (
         <div key={i} className="mb-2">
           <div>

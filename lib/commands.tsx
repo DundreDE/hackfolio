@@ -1,3 +1,4 @@
+import { projects } from "@/data/projects";
 import type { ReactNode } from "react";
 
 type Command = { desc: string; run: (args: string[]) => ReactNode };
@@ -20,8 +21,42 @@ export const commands: Record<string, Command> = {
     run: () => "I am Jakob an 14 year guy from Germany.",
   },
   ls: {
-    desc: "List Projects",
-    run: () => "vocabulator/ ",
+    desc: "List projects and (projects <name> for a closer look",
+    run: ([short_name]) => {
+      if (!short_name) {
+        return (
+          <ul>
+            {projects.map((p) => (
+              <li key={p.short_name}>
+                <span className="text-cyan-400">{p.short_name}</span> [
+                {p.status}] - {p.description}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+      const p = projects.find((x) => x.short_name === short_name);
+      if (!p) return `project not found: ${short_name}`;
+      return (
+        <div>
+          <div className="text-cyan-400">{p.name}</div>
+          <div>{p.description}</div>
+          <div>Techstack: {p.stack.join(", ")}</div>
+          {p.links.map((l) => (
+            <div key={l.href}>
+              <a
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                {l.label}
+              </a>
+            </div>
+          ))}
+        </div>
+      );
+    },
   },
 };
 
