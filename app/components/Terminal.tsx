@@ -18,8 +18,11 @@ export default function Terminal() {
 
   function runCommand(input: string) {
     if (!input.trim()) return;
-    if (input.trim() === "clear") return setEntries([]);
-    setEntries((e) => [...e, { input, output: execute(input) }]);
+    if (input.trim() === "clear") {
+      setEntries([]);
+    } else {
+      setEntries((e) => [...e, { input, output: execute(input) }]);
+    }
     setHistory((h) => [input, ...h]);
     setPos(-1);
     setValue("");
@@ -42,8 +45,38 @@ export default function Terminal() {
     }
     if (e.key === "Tab") {
       e.preventDefault();
-      const match = Object.keys(commands).find((c) => c.startsWith(value));
-      if (match) setValue(match);
+
+      const parts = value.trimStart().split(/\s+/);
+      if (/\s$/.test(value)) parts.push("");
+
+      const current = parts[parts.length - 1].toLowerCase();
+      if (parts.length === 1 && current === "") return;
+
+      const candidates =
+        parts.length === 1
+          ? Object.keys(commands)
+          : (commands[parts[0]]?.complete?.(parts.slice(1, -1)) ?? []);
+
+      const matches = candidates.filter((c) =>
+        c.toLowerCase().startsWith(current),
+      );
+      if (matches.length === 0) return;
+
+      if (matches.length === 1) {
+        parts[parts.length - 1] = matches[0];
+        setValue(parts.join(" ") + " ");
+      } else {
+        let prefix = matches[0];
+        for (const m of matches)
+          while (!m.toLowerCase().startsWith(prefix.toLowerCase()))
+            prefix = prefix.slice(0, -1);
+        parts[parts.length - 1] = prefix;
+        setValue(parts.join(" "));
+        setEntries((en) => [
+          ...en,
+          { input: value, output: matches.join("  ") },
+        ]);
+      }
     }
   }
   return (

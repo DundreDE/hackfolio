@@ -1,7 +1,11 @@
 import { projects } from "@/data/projects";
 import type { ReactNode } from "react";
 
-type Command = { desc: string; run: (args: string[]) => ReactNode };
+type Command = {
+  desc: string;
+  run: (args: string[]) => ReactNode;
+  complete?: (args: string[]) => string[];
+};
 
 export const commands: Record<string, Command> = {
   help: {
@@ -22,6 +26,7 @@ export const commands: Record<string, Command> = {
   },
   ls: {
     desc: "List projects and (projects <name> for a closer look",
+    complete: () => projects.map((p) => p.short_name),
     run: ([short_name]) => {
       if (!short_name) {
         return (
