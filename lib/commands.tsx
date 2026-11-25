@@ -24,6 +24,21 @@ export const commands: Record<string, Command> = {
     desc: "About me",
     run: () => "I am Jakob an 14 year guy from Germany.",
   },
+  contact: {
+    desc: "My GitHub.",
+    run: () => (
+      <ul>
+        <a
+          href="https://github.com/dundrede"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+        >
+          GitHub
+        </a>
+      </ul>
+    ),
+  },
   ls: {
     desc: "List projects and (projects <name> for a closer look",
     complete: () => projects.map((p) => p.short_name),
