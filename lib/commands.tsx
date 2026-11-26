@@ -1,6 +1,7 @@
 import Me from "@/app/components/Me";
 import { projects } from "@/data/projects";
 import type { ReactNode } from "react";
+import { StatsCommand } from "./stats";
 
 type Command = {
   desc: string;
@@ -86,6 +87,14 @@ export const commands: Record<string, Command> = {
         </div>
       );
     },
+  },
+  stats: {
+    desc: "My coding stats from today",
+    run: () => (
+      <>
+        <StatsCommand />
+      </>
+    ),
   },
 };
 
