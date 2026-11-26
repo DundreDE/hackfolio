@@ -1,3 +1,4 @@
+import Me from "@/app/components/Me";
 import { projects } from "@/data/projects";
 import type { ReactNode } from "react";
 
@@ -23,6 +24,14 @@ export const commands: Record<string, Command> = {
   whoami: {
     desc: "About me",
     run: () => "I am Jakob an 14 year guy from Germany.",
+  },
+  me: {
+    desc: "A picture from me",
+    run: () => (
+      <>
+        <Me />
+      </>
+    ),
   },
   contact: {
     desc: "My GitHub.",
