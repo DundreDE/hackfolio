@@ -24,7 +24,8 @@ export const commands: Record<string, Command> = {
   },
   whoami: {
     desc: "About me",
-    run: () => "I am Jakob an 14 year guy from Germany.",
+    run: () =>
+      "I am Jakob an 14 year guy from Germany. I love to build web projects",
   },
   me: {
     desc: "A picture from me",
@@ -95,6 +96,11 @@ export const commands: Record<string, Command> = {
         <StatsCommand />
       </>
     ),
+  },
+  skills: {
+    desc: "What are my skills?",
+    run: () =>
+      "My skills: Python, HTML, JS, TS, CSS, Tailwind CSS, Next.js, React, Vercel, Git/Github.",
   },
 };
 
