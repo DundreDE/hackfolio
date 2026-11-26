@@ -93,7 +93,9 @@ export default function Terminal() {
           <div>
             <span className="text-cyan-400">guest@jakob:~$</span> {e.input}
           </div>
-          <div className="whitespace-pre-wrap">{e.output}</div>
+          <div aria-live="polite" className="whitespace-pre-wrap">
+            {e.output}
+          </div>
         </div>
       ))}
       <div className="flex gap-2">
