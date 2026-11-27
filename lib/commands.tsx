@@ -7,6 +7,7 @@ type Command = {
   desc: string;
   run: (args: string[]) => ReactNode;
   complete?: (args: string[]) => string[];
+  hidden?: boolean;
 };
 
 export const commands: Record<string, Command> = {
@@ -14,13 +15,20 @@ export const commands: Record<string, Command> = {
     desc: "Show all commands",
     run: () => (
       <ul>
-        {Object.entries(commands).map(([name, c]) => (
-          <li key={name}>
-            <span className="text-green-400">{name}</span> - {c.desc}
-          </li>
-        ))}
+        {Object.entries(commands)
+          .filter(([, c]) => !c.hidden)
+          .map(([name, c]) => (
+            <li key={name}>
+              <span className="text-green-400">{name}</span> - {c.desc}
+            </li>
+          ))}
       </ul>
     ),
+  },
+  rm: {
+    desc: "",
+    hidden: true,
+    run: () => "No no you don't delete this.",
   },
   whoami: {
     desc: "About me",
