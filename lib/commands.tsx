@@ -35,6 +35,11 @@ export const commands: Record<string, Command> = {
     run: () =>
       "I am Jakob an 14 year guy from Germany. I love to build web projects",
   },
+  42: {
+    desc: "",
+    hidden: true,
+    run: () => "The Answer!",
+  },
   me: {
     desc: "A picture from me",
     run: () => (
