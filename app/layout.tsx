@@ -5,6 +5,7 @@ import "./globals.css";
 const mono = JetBrains_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hackfolio-xi.vercel.app"),
   title: "Jakobonly",
   description: "My portfolio",
 };
