@@ -25,6 +25,24 @@ export const commands: Record<string, Command> = {
       </ul>
     ),
   },
+  cat: {
+    desc: "",
+    hidden: true,
+    run: ([file]) => {
+      if (!file) return "cat: missing file";
+
+      switch (file) {
+        case ".env":
+          return (
+            <div>
+              <p>ANTHROPIC_API_KEY=sk-42ohbiu124b8idb12</p>
+            </div>
+          );
+        default:
+          return `cat: ${file}: No such file or directory`;
+      }
+    },
+  },
   rm: {
     desc: "",
     hidden: true,
